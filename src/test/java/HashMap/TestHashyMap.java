@@ -14,8 +14,9 @@ public class TestHashyMap {
     @Test
     void testAddEntryToMap() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "Test");
+        map.add(1, "Test2");
         //when
         int size = map.size();
         //then
@@ -26,7 +27,7 @@ public class TestHashyMap {
     @Test
     void testOverridingExistingRecordInMap() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "Test");
         map.add(1, "Override record");
         //when
@@ -39,7 +40,7 @@ public class TestHashyMap {
     @Test
     void testGettingObjectFromMap() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "1");
         map.add(2, "2");
         //when
@@ -57,7 +58,7 @@ public class TestHashyMap {
     @Test
     void testIfSizeReturnsCorrectValue() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "3");
         map.add(2, "3");
         //when
@@ -69,7 +70,7 @@ public class TestHashyMap {
     @Test
     void testIfClearMethodResetsSize() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "1");
         map.add(2, "1");
         //when
@@ -81,7 +82,7 @@ public class TestHashyMap {
     @Test
     void testIfClearMethodFillsMapWithNulls() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "1");
         map.add(2, "1");
         //when
@@ -94,7 +95,7 @@ public class TestHashyMap {
     @Test
     void testIfRemoveMethodRemovesEntry() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "1");
         map.add(2, "2");
         //when
@@ -108,7 +109,7 @@ public class TestHashyMap {
     @Test
     void testIfContainsValueReturnsTrueWhenValueIsNotFoundInMap() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "ABC");
         //when
         boolean abc = map.containsValue("ABC");
@@ -119,7 +120,7 @@ public class TestHashyMap {
     @Test
     void testIfContainsValueReturnsFalseWhenValueIsNotFoundInMap() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "DEF");
         //when
         boolean abc = map.containsValue("ABC");
@@ -130,7 +131,7 @@ public class TestHashyMap {
     @Test
     void testIfContainsKeyReturnsTrueIfKeyExists() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "DEF");
         map.add(2, "DEF");
         map.add(3, "DEF");
@@ -145,7 +146,7 @@ public class TestHashyMap {
     @Test
     void testIfContainsKeyReturnsFalseIfKeyDoesntExist() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "DEF");
         //when
         boolean b = map.containsKey(2);
@@ -156,7 +157,7 @@ public class TestHashyMap {
     @Test
     void testGettingAllExistingKeysFromMap() {
         //given
-        HashyMap map = new HashyMap<>();
+        HashyMap<Integer,String> map = new HashyMap<>();
         map.add(1, "DEF");
         map.add(2, "DEF");
         map.add(3, "DEF");
@@ -167,34 +168,4 @@ public class TestHashyMap {
         assertNotNull(keys);
     }
 
-    @Test
-    void testEqualsMethodInEntryClass() {
-        //given
-        Entry entry = new Entry<>(1, 2);
-        Entry entry1 = new Entry<>(2, 1);
-        Entry entry2 = new Entry<>(1, 2);
-        //when
-        boolean notEquals = entry.equals(entry1);
-        boolean equals = entry.equals(entry2);
-        //then
-        assertTrue(equals);
-        assertFalse(notEquals);
-    }
-
-    @Test
-    void testHashCodeMethodInEntryClass() {
-        //given
-        Entry entry = new Entry<>(1, 2);
-        Entry entry1 = new Entry<>(2, 1);
-        Entry entry2 = new Entry<>(1, 3);
-        //when
-        int hashCode = entry.hashCode();
-        int notEqualsHash = entry1.hashCode();
-        int equalsHash = entry2.hashCode();
-        //then
-        assertEquals(hashCode, equalsHash);
-        assertNotEquals(hashCode, notEqualsHash);
-        assertNotEquals(notEqualsHash, equalsHash);
-
-    }
 }

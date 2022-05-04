@@ -1,5 +1,7 @@
 package HashSet;
 
+import Consumer.Consumer;
+
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -94,5 +96,15 @@ public class HashySet<T> implements Set<T> {
     @Override
     public int size() {
         return size;
+    }
+
+
+    public void forEach(Consumer<T> consumer){
+        for (Entry<T> entry:bucket) {
+            while(entry!= null){
+                consumer.accept(entry.getKey());
+                entry = entry.getNext();
+            }
+        }
     }
 }

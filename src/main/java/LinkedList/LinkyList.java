@@ -1,5 +1,7 @@
 package LinkedList;
 
+import Consumer.Consumer;
+
 public class LinkyList<T> implements List<T> {
 
     private Node<T> head;
@@ -32,7 +34,7 @@ public class LinkyList<T> implements List<T> {
     //checked //tested
     @Override
     public boolean contains(T value) {
-        Node current = head;
+        Node<T> current = head;
 
         while (current != null) {
             if (value.equals(current.getValue())) {
@@ -47,7 +49,7 @@ public class LinkyList<T> implements List<T> {
     @Override
     public T get(int index) {
         if (index > size || size == 0) {
-            return null;
+            throw new IndexOutOfBoundsException("No such index in the list");
         }
         Node<T> temp = head;
         for (int i = 0; i < index; i++) {
@@ -59,7 +61,7 @@ public class LinkyList<T> implements List<T> {
     //checked //tested //Wyjątki na samej górze
     @Override
     public void remove(int index) {
-        if (index < 1 || index > size()) {
+        if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException("No such index in the list");
         }
         if (index == 0) {
@@ -99,6 +101,17 @@ public class LinkyList<T> implements List<T> {
             index++;
         }
         return -1;
+    }
+
+    public void forEach(Consumer<T> consumer) {
+        Node<T> temp = head;
+        while (temp.getNext() != null) {
+            consumer.accept(temp.getValue());
+            temp = temp.getNext();
+            if (temp.getNext() == null) {
+                consumer.accept(tail.getValue());
+            }
+        }
     }
 
 }

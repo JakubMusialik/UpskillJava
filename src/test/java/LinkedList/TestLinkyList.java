@@ -47,11 +47,9 @@ public class TestLinkyList {
         list.clear();
         //then
         assertEquals(list.size(), 0);
-        assertNull(list.get(0));
-        assertNull(list.get(1));
-        assertNull(list.get(2));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(1));
     }
-        //mozna rozbic na 2 testy
+
     @Test
     void testIfListContainsElement() {
         //given
@@ -59,10 +57,18 @@ public class TestLinkyList {
         list.add(10);
         //when
         boolean contains1 = list.contains(10);
+        //then
+        assertTrue(contains1);
+    }
+    @Test
+    void shouldReturnFalseIfListDoesntContainElement(){
+        //given
+        LinkyList<Integer> list = new LinkyList<>();
+        list.add(10);
+        //when
         boolean contains = list.contains(15);
         //then
         assertFalse(contains);
-        assertTrue(contains1);
     }
 
     @Test
@@ -71,13 +77,20 @@ public class TestLinkyList {
         LinkyList<Integer> list = new LinkyList<>();
         list.add(10);
         list.add(15);
-        list.add(20);
         //when
-        Integer integer = list.get(0);
-        Integer integer1 = list.get(52);
+        Integer integer = list.get(1);
         //then
-        assertEquals(integer, 10);
-        assertNull(integer1);
+        assertEquals(integer, 15);
+
+    }
+
+    @Test
+    void shouldGetThrowExceptionWhenIndexOutOfBounds(){
+        //given
+        LinkyList<Integer> list = new LinkyList<>();
+        //when
+        //then
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(2));
     }
 
     @Test
@@ -95,12 +108,23 @@ public class TestLinkyList {
     }
 
     @Test
-    void testRemovingHeadNodeFromTheList() {
+    void shouldThrowExceptionWhenNothingToRemove() {
         //given
         LinkyList<Integer> list = new LinkyList<>();
         //when
         //then
         assertThrows(IndexOutOfBoundsException.class, () -> list.remove(1));
+    }
+
+    @Test
+    void shouldDeleteHeadNodeFromTheList(){
+        //given
+        LinkyList<Integer> list = new LinkyList<>();
+        list.add(1);
+        //when
+        list.remove(0);
+        //then
+        assertEquals(list.size(),0);
     }
 
     @Test
@@ -114,30 +138,27 @@ public class TestLinkyList {
         //then
         assertEquals(size, 2);
     }
-        // mozna rozdzielić na 2 testy
+
     @Test
     void testGettingIndexOfNodeInList() {
         //given
         LinkyList<Integer> list = new LinkyList<>();
         list.add(1);
         list.add(2);
-        list.add(3);
         //when
         int indexOf = list.indexOf(2);
-        int indexOf1 = list.indexOf(4);
         //then
         assertEquals(indexOf, 1);
-        assertEquals(indexOf1, -1);
+
     }
-        //przerzucić do Node'a
     @Test
-    void testSettingNodeValue() {
+    void shouldGetReturnNegativeOneIfIndexOutOfBounds(){
         //given
-        Node<Integer> node = new Node<>(1);
+        LinkyList<Integer> list = new LinkyList<>();
         //when
-        node.setValue(10);
+        int indexOf = list.indexOf(2);
         //then
-        assertEquals(node.getValue(), 10);
+        assertEquals(indexOf, -1);
     }
 
     @Test

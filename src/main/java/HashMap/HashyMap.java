@@ -1,6 +1,10 @@
 package HashMap;
 
-import java.util.*;
+import Consumer.Consumer;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class HashyMap<K, V> implements Map<K, V> {
 
@@ -83,6 +87,7 @@ public class HashyMap<K, V> implements Map<K, V> {
         return false;
     }
 
+
     //checked //tested
     @Override
     public V get(K key) {
@@ -154,4 +159,14 @@ public class HashyMap<K, V> implements Map<K, V> {
     public int size() {
         return size;
     }
+
+    public void forEach(Consumer<V> consumer) {
+        for (Entry<K, V> entry : buckets) {
+            while (entry != null) {
+                consumer.accept(entry.getValue());
+                entry = entry.getNext();
+            }
+        }
+    }
+
 }
