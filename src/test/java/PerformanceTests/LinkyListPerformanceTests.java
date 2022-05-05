@@ -1,47 +1,43 @@
 package PerformanceTests;
 
+import LinkedList.LinkyList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @ExtendWith(MockitoExtension.class)
-public class ArrayListPerformanceTests {
-    //JVM musi się rozkręcić - różne czasy testów
-    //JIT just in time compile <-- check
+public class LinkyListPerformanceTests {
+
     @Test
-    void addNewRecordToArrayList() {
+    void addNewRecordToTheList() {
         //given
         double avg = 0;
-        List<Integer> list = new ArrayList<>();
+        LinkyList<Integer> list = new LinkyList<>();
         //when
         for (int i = 0; i < 10; i++) {
             double start = System.nanoTime();
-            for (int j = 0; j < 100000; j++) {
+            for (int j = 0; j < 10000; j++) {
                 list.add(1);
             }
             double stop = System.nanoTime();
             //then
             double elapsedTime = stop - start;
-//        BigDecimal bigDecimal = new BigDecimal(elapsedTime);
             avg += elapsedTime;
         }
         System.out.println("Average execution time is: " + (avg / 10) / 1000000 + " miliseconds.");
     }
 
     @Test
-    void getRecordFromArrayList() {
+    void getRecordFromList() {
         //given
         double avg = 0;
-        List<Integer> list = new ArrayList<>();
+        LinkyList<Integer> list = new LinkyList<>();
         //when
         for (int i = 0; i < 10; i++) {
             list.add(i);
             double start = System.nanoTime();
             for (int j = 0; j < 10000; j++) {
-                list.get(0);
+                list.get(i);
             }
             double stop = System.nanoTime();
             //then
@@ -52,11 +48,10 @@ public class ArrayListPerformanceTests {
     }
 
     @Test
-    void removeRecordFromArrayList() {
-        //given
-        double avg = 0;
-        List<Integer> list = new ArrayList<>();
+    void removeRecordFromList() {
         //when
+        double avg = 0;
+        LinkyList<Integer> list = new LinkyList<>();
         for (int i = 0; i < 10; i++) {
             double start = System.nanoTime();
             for (int j = 0; j < 10000; j++) {
@@ -72,16 +67,16 @@ public class ArrayListPerformanceTests {
     }
 
     @Test
-    void checkIfArrayListContainsRecord() {
+    void checkIfListContainsRecord() {
         //given
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
+        LinkyList<Integer> list = new LinkyList<>();
         double avg = 0;
         //when
         for (int i = 0; i < 10; i++) {
+            list.add(i);
             double start = System.nanoTime();
             for (int j = 0; j < 10000; j++) {
-                list.contains(1);
+                list.contains(i);
             }
             double stop = System.nanoTime();
             //then

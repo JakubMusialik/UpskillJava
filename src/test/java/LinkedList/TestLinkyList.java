@@ -164,7 +164,7 @@ public class TestLinkyList {
     @Test
     void testIfRemoveMethodThrowsException() {
         //given
-        LinkyList emptyList = new LinkyList();
+        LinkyList<Integer> emptyList = new LinkyList<>();
         //when
         //then
         assertThrows(IndexOutOfBoundsException.class, () -> emptyList.remove(1));
