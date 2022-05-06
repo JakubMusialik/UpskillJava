@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Entry<T> {
 
-    T key;
+    private T key;
 
-    Entry next;
+    private Entry next;
 
     public Entry(T key) {
         this.key = key;

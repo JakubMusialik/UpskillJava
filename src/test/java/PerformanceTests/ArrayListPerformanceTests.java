@@ -20,7 +20,7 @@ public class ArrayListPerformanceTests {
         for (int i = 0; i < 10; i++) {
             double start = System.nanoTime();
             for (int j = 0; j < 100000; j++) {
-                list.add(1);
+                list.add(j);
             }
             double stop = System.nanoTime();
             //then
@@ -28,7 +28,7 @@ public class ArrayListPerformanceTests {
 //        BigDecimal bigDecimal = new BigDecimal(elapsedTime);
             avg += elapsedTime;
         }
-        System.out.println("Average execution time is: " + (avg / 10) / 1000000 + " miliseconds.");
+        System.out.println("Average execution time for add method is: " + (avg / 10) / 1000000 + " miliseconds.");
     }
 
     @Test
@@ -36,19 +36,21 @@ public class ArrayListPerformanceTests {
         //given
         double avg = 0;
         List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            list.add(i);
+        }
         //when
         for (int i = 0; i < 10; i++) {
-            list.add(i);
             double start = System.nanoTime();
-            for (int j = 0; j < 10000; j++) {
-                list.get(0);
+            for (int j = 0; j < list.size(); j++) {
+                list.get(j);
             }
             double stop = System.nanoTime();
             //then
             double elapsedTime = stop - start;
             avg += elapsedTime;
         }
-        System.out.println("Average execution time is: " + (avg / 10) / 1000000 + " miliseconds.");
+        System.out.println("Average execution time for get method is: " + (avg / 10) / 1000000 + " miliseconds.");
     }
 
     @Test
@@ -56,38 +58,89 @@ public class ArrayListPerformanceTests {
         //given
         double avg = 0;
         List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            list.add(i);
+        }
         //when
         for (int i = 0; i < 10; i++) {
             double start = System.nanoTime();
-            for (int j = 0; j < 10000; j++) {
-                list.add(1);
-                list.remove(0);
+            for (int j = 0; j < list.size(); j++) {
+                list.remove(j);
             }
             double stop = System.nanoTime();
             //then
             double elapsedTime = stop - start;
             avg += elapsedTime;
         }
-        System.out.println("Average execution time is: " + (avg / 10) / 1000000 + " miliseconds.");
+        System.out.println("Average execution time for remove method is: " + (avg / 10) / 1000000 + " miliseconds.");
+    }
+
+
+
+    @Test
+    void removeMiddleRecordFromArrayList() {
+        //given
+        double avg = 0;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            list.add(i);
+        }
+        //when
+        for (int i = 0; i < 10; i++) {
+            double start = System.nanoTime();
+            for (int j = 0; j < list.size(); j++) {
+                list.remove(list.size()/2);
+            }
+            double stop = System.nanoTime();
+            //then
+            double elapsedTime = stop - start;
+            avg += elapsedTime;
+        }
+        System.out.println("Average execution time for remove(in the middle) method is: " + (avg / 10) / 1000000 + " miliseconds.");
+    }
+
+    @Test
+    void removeRandomRecordFromArrayList() {
+        //given
+        double avg = 0;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            list.add(i);
+        }
+        //when
+        for (int i = 0; i < 10; i++) {
+            double start = System.nanoTime();
+            for (int j = 0; j < list.size(); j++) {
+                int random = (int) (Math.random() * (list.size()));
+                list.remove(random);
+            }
+            double stop = System.nanoTime();
+            //then
+            double elapsedTime = stop - start;
+            avg += elapsedTime;
+        }
+        System.out.println("Average execution time for remove(random index) method is: " + (avg / 10) / 1000000 + " miliseconds.");
     }
 
     @Test
     void checkIfArrayListContainsRecord() {
         //given
         List<Integer> list = new ArrayList<>();
-        list.add(1);
+        for (int i = 0; i < 10000; i++) {
+            list.add(i);
+        }
         double avg = 0;
         //when
         for (int i = 0; i < 10; i++) {
             double start = System.nanoTime();
-            for (int j = 0; j < 10000; j++) {
-                list.contains(1);
+            for (int j = 0; j < list.size(); j++) {
+                list.contains(j);
             }
             double stop = System.nanoTime();
             //then
             double elapsedTime = stop - start;
             avg += elapsedTime;
         }
-        System.out.println("Average execution time is: " + (avg / 10) / 1000000 + " miliseconds.");
+        System.out.println("Average execution time for contains method is: " + (avg / 10) / 1000000 + " miliseconds.");
     }
 }

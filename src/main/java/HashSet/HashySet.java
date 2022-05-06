@@ -33,7 +33,7 @@ public class HashySet<T> implements Set<T> {
             if (temp.getKey() == value) {
                 return;
             }
-            temp = temp.next;
+            temp = temp.getNext();
         }
         //if doesn't exist add unique Entry
         Entry entry = new Entry(value);
@@ -76,11 +76,9 @@ public class HashySet<T> implements Set<T> {
 
         while (temp != null) {
             // removing if element found
-            if (temp.key.equals(value)) {
+            if (temp.getKey().equals(value)) {
                 if (previous == null) {
                     bucket[index] = temp.getNext();
-                } else {
-                    previous.setNext(temp.getNext());
                 }
                 size--;
                 return;
@@ -99,9 +97,9 @@ public class HashySet<T> implements Set<T> {
     }
 
 
-    public void forEach(Consumer<T> consumer){
-        for (Entry<T> entry:bucket) {
-            while(entry!= null){
+    public void forEach(Consumer<T> consumer) {
+        for (Entry<T> entry : bucket) {
+            while (entry != null) {
                 consumer.accept(entry.getKey());
                 entry = entry.getNext();
             }
