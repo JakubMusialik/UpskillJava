@@ -1,0 +1,22 @@
+package DesignPatterns.Adapter.API;
+
+import java.time.LocalDate;
+
+public class LibraryAPIImpl_v2 implements LibraryAPI_v2{
+
+    public int numberOfAviableCopies(String bookTitle) {
+        System.out.println("Sprawdzam dostepnosc " + bookTitle);
+        return 3;
+
+    }
+
+    public LocalDate dueDate(String bookTitle, String firstName, String lastName, LocalDate dateOfBirth) {
+        System.out.println("Sprawdzam date zwrotu dla " + bookTitle);
+        return LocalDate.now();
+    }
+
+    public boolean reserve(String bookTitle, String firstName, String lastName, LocalDate dateOfBirth) {
+        System.out.println("Rezerwuje " + bookTitle);
+        return true;
+    }
+}
