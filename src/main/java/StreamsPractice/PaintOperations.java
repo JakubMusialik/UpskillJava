@@ -2,10 +2,8 @@ package StreamsPractice;
 
 import StreamsPractice.Objects.Paint;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.IntStream;
 
 
 public class PaintOperations {
@@ -51,13 +49,13 @@ public class PaintOperations {
 
         paintList.stream()
                 .filter(paint -> paint.getColor().equals(color))
-                .map( paint -> paint.toString())
+                .map(paint -> paint.toString())
                 .sorted(Comparator.reverseOrder())
 //               .peek(System.out::println)
                 .forEach(System.out::println);
     }
 
-    public static void findPaintSizeByColorAndPrice(List<Paint> paintList,String color,int price){
+    public static void findPaintSizeByColorAndPrice(List<Paint> paintList, String color, int price) {
 
         paintList.stream().filter(paint -> paint.getColor().equals(color))
                 .filter(paint -> paint.getPrice() == price)
@@ -65,7 +63,7 @@ public class PaintOperations {
                 .forEach(System.out::println);
     }
 
-    public static void findCheapestPaint(List<Paint> paintList){
+    public static void findCheapestPaint(List<Paint> paintList) {
 
         Optional<Paint> first = paintList.stream()
                 .min(Comparator.comparingInt(Paint::getPrice));
@@ -74,7 +72,7 @@ public class PaintOperations {
 
     }
 
-    public static void findTheMostExpensivePaint(List<Paint> paintList){
+    public static void findTheMostExpensivePaint(List<Paint> paintList) {
         Optional<Paint> max = paintList.stream().max(Comparator.comparingInt(Paint::getPrice));
 
         System.out.println(max);
@@ -90,14 +88,30 @@ public class PaintOperations {
         System.out.println("-------------------------");
         findPaintsByColor(paintList, "White");
         System.out.println("-------------------------");
-        changeColorPrice(paintList,"Red",90);
+        changeColorPrice(paintList, "Red", 90);
         System.out.println("-------------------------");
-        changeSizePrice(paintList,25,10);
+        changeSizePrice(paintList, 25, 10);
         System.out.println("-------------------------");
-        findPaintSizeByColorAndPrice(paintList,"White",10);
+        findPaintSizeByColorAndPrice(paintList, "White", 10);
         System.out.println("-------------------------");
         findCheapestPaint(paintList);
         System.out.println("-------------------------");
         findTheMostExpensivePaint(paintList);
+
+        int[] arr = {1,4,5,6,7,-1};
+
+        int closestIndex = 0;
+        int diff = Integer.MAX_VALUE;
+        for (int i = 0; i < arr.length; ++i) {
+            int abs = Math.abs(arr[i]);
+            if (abs < diff) {
+                closestIndex = i;
+                diff = abs;
+            } else if (abs == diff && arr[i] > 0 && arr[closestIndex] < 0) {
+                //same distance to zero but positive
+                closestIndex =i;
+            }
+        }
+        System.out.println(arr[closestIndex ]);
     }
 }
